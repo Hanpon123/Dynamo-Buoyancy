@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamo Buoyancy</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css.css">
+    <link rel="stylesheet" href="card.css">
+    <script src="https://kit.fontawesome.com/2b7b7ce177.js" crossorigin="anonymous"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link rel="icon" href="https://image.makewebeasy.net/makeweb/0/Ypz138jAs/attach_file/favicon/favicon_20180611100029-0.ico?v=202306151430" type="image/x-icon">
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+        </symbol>
+        <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+        </symbol>
+        <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+        </symbol>
+    </svg>
+
+    <script>
+        var firebaseConfig = {
+          apiKey: "AIzaSyAaa3NW5g3wTqLzMIYMklo0KnRo33Ue5o4",
+          authDomain: "dynamo-9305b.firebaseapp.com",
+          projectId: "dynamo-9305b",
+          storageBucket: "dynamo-9305b.appspot.com",
+          messagingSenderId: "163086932546",
+          appId: "1:163086932546:web:6d47be811b5561caee2bdb",
+          measurementId: "G-3L7PM50TCK"
+        };
+      
+        firebase.initializeApp(firebaseConfig);
+        var db = firebase.firestore();
+    </script>
+
+
+</head>
+<body>
+
+    <script>
+        AOS.init();
+    </script>
+
+    <nav style="opacity: 0;">
+        <div class="container-fluid" style="background-color: white;">
+            <div class="container" style="padding: 16px 0px;">
+                <div class="row">
+                    <div class="col-3">
+                        <span style="font-size: 28px; font-weight: 600; color: #394149; cursor: default; user-select: none;">Dynamo</span>
+                        <span style="font-size: 28px; font-weight: 600; color: #5E3BEE; cursor: default; user-select: none;"> Buoyancy</span>
+                    </div>
+                    <div class="col-9" style="display: flex; justify-content: space-between; align-items: center;">
+                        <a href="#home">หน้าแรก</a>
+                        <a href="#about">เกี่ยวกับ</a>
+                        <a href="#benefit">ประโยชน์</a>
+                        <a href="#competition">การแข่งขัน</a>
+                        <a href="#file">ไฟล์โครงงาน</a>
+                        <a href="#eng">การออกแบบเชิงวิศวกรรม</a>
+                        <a href="#worksheet">ใบงาน</a>
+                        <a href="#member">สมาชิก</a>
+                        <a class="btn" href="#contact">Comment</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid" style="background-color: rgba(224, 224, 224, 0.7); height:2px;"></div>
+        <div class="container-fluid" style="background-color: rgba(242, 242, 242, 0.7); height:2px;"></div>
+        <div class="container-fluid" style="background-color: rgba(243, 243, 243, 0.7); height:2px;"></div>
+    </nav>
+
+    <nav style="position: fixed; top: 0; width: 100%; z-index: 5;">
+        <div class="container-fluid" style="background-color: white;">
+            <div class="container" style="padding: 16px 0px;">
+                <div class="row">
+                    <div class="col-3">
+                        <span style="font-size: 28px; font-weight: 600; color: #394149; cursor: default; user-select: none;">Dynamo</span>
+                        <span style="font-size: 28px; font-weight: 600; color: #5E3BEE; cursor: default; user-select: none;"> Buoyancy</span>
+                    </div>
+                    <div class="col-9" style="display: flex; justify-content: space-between; align-items: center;">
+                        <a href="#home">หน้าแรก</a>
+                        <a href="#about">เกี่ยวกับ</a>
+                        <a href="#benefit">ประโยชน์</a>
+                        <a href="#competition">การแข่งขัน</a>
+                        <a href="#file">ไฟล์โครงงาน</a>
+                        <a href="#eng">การออกแบบเชิงวิศวกรรม</a>
+                        <a href="#worksheet">ใบงาน</a>
+                        <a href="#member">สมาชิก</a>
+                        <a class="btn" href="#contact">Comment</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid" style="background-color: rgba(224, 224, 224, 0.7); height:2px;"></div>
+        <div class="container-fluid" style="background-color: rgba(242, 242, 242, 0.7); height:2px;"></div>
+        <div class="container-fluid" style="background-color: rgba(243, 243, 243, 0.7); height:2px;"></div>
+    </nav>
+
+
+
+    <nav-mobile style="opacity: 0;">
+        <div class="container-fluid" style="background-color: white;">
+            <div class="container" style="padding: 16px 0px;">
+                <div class="row">
+                    <div class="col-12 " style="display: flex; justify-content: center;">
+                        <span style="font-size: 28px; font-weight: 600; color: #394149; cursor: default; user-select: none;">Dynamo</span>
+                        <span style="font-size: 28px; font-weight: 600; color: #5E3BEE; cursor: default; user-select: none;"> Buoyancy</span>
+                    </div>
+                    <div class="col-12 bar" style="text-align: center;">
+                        <i class="fa-solid fa-bars" style="color: 1C1E53; font-size: 28px; padding-top: 16px;"></i>
+                        <div class="menu">
+                            <div><a class="navText" href="#home">หน้าแรก</a></div>
+                            <div><a class="navText" href="#about">เกี่ยวกับ</a></div>
+                            <div><a class="navText" href="#benefit">ประโยชน์</a></div>
+                            <div><a class="navText" href="#competition">การแข่งขัน</a></div>
+                            <div><a class="navText" href="#file">ไฟล์โครงงาน</a></div>
+                            <div><a href="#eng">การออกแบบเชิงวิศวกรรม</a></div>
+                            <div><a href="#worksheet">ไฟล์ใบงาน</a></div>
+                            <div><a href="#member">สมาชิก</a></div>
+                            <div><a class="btn" href="#contact">แสดงความคิดเห็น</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid" style="background-color: rgba(224, 224, 224, 0.7); height:2px;"></div>
+        <div class="container-fluid" style="background-color: rgba(242, 242, 242, 0.7); height:2px;"></div>
+        <div class="container-fluid" style="background-color: rgba(243, 243, 243, 0.7); height:2px;"></div>
+    </nav-mobile>
+
+    <nav-mobile style="position: fixed; top: 0; width: 100%; z-index: 5;">
+        <div class="container-fluid" style="background-color: white;">
+            <div class="container" style="padding: 16px 0px;">
+                <div class="row">
+                    <div class="col-12 " style="display: flex; justify-content: center;">
+                        <span style="font-size: 28px; font-weight: 600; color: #394149; cursor: default; user-select: none;">Dynamo</span>
+                        <span style="font-size: 28px; font-weight: 600; color: #5E3BEE; cursor: default; user-select: none;"> Buoyancy</span>
+                    </div>
+                    <div class="col-12 bar" style="text-align: center;">
+                        <i class="fa-solid fa-bars" style="color: 1C1E53; font-size: 28px; padding-top: 16px;"></i>
+                        <div class="menu">
+                            <div><a class="navText" href="#home">หน้าแรก</a></div>
+                            <div><a class="navText" href="#about">เกี่ยวกับ</a></div>
+                            <div><a class="navText" href="#benefit">ประโยชน์</a></div>
+                            <div><a class="navText" href="#competition">การแข่งขัน</a></div>
+                            <div><a class="navText" href="#file">ไฟล์โครงงาน</a></div>
+                            <div><a class="navText" href="#eng">การออกแบบเชิงวิศวกรรม</a></div>
+                            <div><a class="navText" href="#worksheet">ไฟล์ใบงาน</a></div>
+                            <div><a class="navText" href="#member">สมาชิก</a></div>
+                            <div><a class="btn" href="#contact">แสดงความคิดเห็น</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid" style="background-color: rgba(224, 224, 224, 0.7); height:2px;"></div>
+        <div class="container-fluid" style="background-color: rgba(242, 242, 242, 0.7); height:2px;"></div>
+        <div class="container-fluid" style="background-color: rgba(243, 243, 243, 0.7); height:2px;"></div>
+    </nav-mobile>
+
+    <test data-aos="fade-up">
+        <div class="container-fluid" style="background-image: url('/banner.png'); background-size: cover; background-position: center;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12" data-aos="fade-up" data-aos-duration="1000000">
+                        <p style="font-size: 75px; color: white; text-align: center; padding-top:30px">ทุ่นลอยน้ำไดนาโม</p>
+                        <p style="font-size: 50px; color: white; text-align: center; padding-bottom:30px">(Dynamo Buoyancy)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </test>
+
+    <home id="home">
+        <div class="container-fluid" style="background-color: #ebf7fc;">
+            <div class="container " style="padding: 120px 0px;">
+                <div class="row gy-5 home" style="display: flex; align-items: center;">
+                    <div class="col-lg-6 " style="align-items: center;" data-aos="fade-right" data-aos-offset="0">
+                        <p style="font-size: 20px; font-weight: 400;">ยินดีต้อนรับสู่เว็บไซต์....</p>
+                        <span style="font-size: 50px; color: #5E3BEE; font-weight: 500;">ทุ่นลอยน้ำไดนาโม</span>
+                        <p style="font-size: 50px; font-weight: 500;">(Dynamo Buoyancy)</p>
+                        <p style="font-size: 20px; font-weight: 400;">โดย นายหาญพล พรหมสมบัติ, นายศักดิ์นที อ่อนรักษ์ <br> และนายจักรวัฒน์ ชูเกิด <br> โรงเรียนมหาวชิราวุธ จังหวัดสงขลา</p>
+                        <a class="btn" href="#about">เกี่ยวกับโครงงาน</a>
+                    </div>
+                    <div class="col-lg-6 " style="text-align: center;" data-aos="fade-left">
+                        <img class="picture" src="รวมทุ่นดำ.png" style="border: 5px solid #432c9b; border-radius: 25px;"> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </home>
+
+    <about id="about">
+        <div class="container-fluid" style="background-color: #ffffff;">
+            <div class="container " style="padding: 100px 0px;">
+                <div class="row gy-5" style="display: flex; align-items: center;">
+                    <div class="col-lg-6 default" style="text-align: left;" data-aos="fade-right">
+                        <img class="picture" src="กราฟฟิกทุ่นสั่น.gif" style="border: 5px solid #432c9b; border-radius: 25px; ">
+                    </div>
+                    <div class="col-lg-6 text" data-aos="fade-left" style="padding-left: 12px; padding-right: 12px;">
+                        <p>
+                            <span style="color: #394149; font-size: 38px; font-weight: 500;">เกี่ยวกับโครงงาน </span>
+                            <span style="color: #5E3BEE; font-size: 38px; font-weight: 500;"> "ทุ่นลอยน้ำไดนาโม"</span>
+                        </p>
+                        <p style="color: #394149; font-size: 18px; text-align: left;">
+                            ทุ่นลอยน้ำไดนาโม (Dynamo Buoyancy) เป็น สิ่งประดิษฐ์ที่สามารถผลิตพลังงานไฟฟ้า ด้วยพลังงานกลจากคลื่นทะเล
+                            ซึ่งอาศัยกฎของ ไมเคิล ฟาราเดย์ เพื่อผลิตพลังงานไฟฟ้า
+                            โดยทำการผูกสปริงไว้ทั้งสองข้างของแม่เหล็ก ซึ่งวางตัวไว้ในแนวดิ่งภายในอุโมงค์ขดลวด
+                        </p>
+                        <p style="color: #394149; font-size: 18px; text-align: left;">
+                            ทำให้สามารถผลิตไฟฟ้าเพียงพอต่อการใช้งานกับอุปกรณ์ไฟฟ้าขนาดเล็กในครัวเรือนตลอดเวลาทั้งในเวลากลางวัน และกลางคืน โดยไม่ก่อให้เกิดมลพิษต่อสิ่งแวดล้อม อีกทั้งยังไม่ก่อให้เกิดขยะอิเล็กทรอนิกส์อีกด้วย
+                        </p>
+                    </div>
+                    <div class="col-lg-6 mobile" style="text-align: center;" data-aos="fade-right">
+                        <img class="picture" src="กราฟฟิกทุ่นสั่น.gif" style="border: 5px solid #432c9b; border-radius: 25px; ">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </about>
+
+    <benefit id="benefit">
+        <div class="container-fluid" style="background-color: #ebf7fc;">
+            <div class="container" style="padding: 100px 0px;">
+                <div class="row gy-5">
+
+                    <div class="col-12" data-aos="fade-up">
+                        <span style="color: #394149; font-size: 38px; font-weight: 500;"><i class="fa-solid fa-square-check" style="color: rgb(50, 176, 0);"></i> ประโยชน์ ของ </span>
+                        <span style="color: #5E3BEE; font-size: 38px; font-weight: 500;"> "ทุ่นลอยน้ำไดนาโม"</span>
+                    </div>
+
+                    <div class="col-xl-3 col-lg-6" style="display: flex; justify-content: center;" data-aos="fade-up" data-aos-offset="0">
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                              <div class="flip-card-front" style="text-align: left;">
+                                <div class="card-body" style="padding-bottom: 0px;">
+                                    <h5 class="card-title" style="color: #5E3BEE; font-weight: 600;">ความเป็นมิตรต่อสิ่งแวดล้อม</h5>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item" style="color: #394149;">- ผลิตไฟฟ้าได้ตลอดเวลา <i class="fa-solid fa-bolt"></i> <br>- ไม่จำเป็นต้องใช้แบตเตอรี่ <i class="fa-solid fa-car-battery"></i><br>- ช่วยลดการเกิดขยะอิเล็กทรอนิกส์ <i class="fa-solid fa-microchip"></i></li>
+                                    <li class="list-group-item" style="color: #394149;">- ผลิตไฟฟ้าด้วยพลังงานสะอาด <i class="fa-solid fa-seedling"></i><br>- ทุ่น 1 ทุ่น สามารถลดการปล่อยคาร์บอนไดออกไซด์ได้มากถึง 342.92 กิโลกรัมคาร์บอนไดออกไซด์ต่อปี</li>
+                                    <li class="list-group-item" style="color: red; font-size: 16px;">คลิกที่นี่เพื่ออ่านรายละเอียด</li>
+                                </ul>
+                              </div>
+                              <div class="flip-card-back">
+                                <div class="card-body">
+                                    <h5 class="card-title" style="color: #5E3BEE; font-weight: 600;">การคำนวณ Carbon Emission</h5>
+                                </div>
+                                <img src="CarbonEmission/ไฟฟ้า.png" width="250px">
+                                <img src="CarbonEmission/คาร์บอน.png" width="250px">
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-lg-6" style="display: flex; justify-content: center;" data-aos="fade-up" data-aos-offset="100">
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                              <div class="flip-card-front" style="text-align: left;">
+                                <div class="card-body" style="padding-bottom: 0px;">
+                                    <h5 class="card-title" style="color: #5E3BEE; font-weight: 600; font-size: 18px;">ประสิทธิภาพของทุ่นลอยน้ำไดนาโม</h5>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item" style="color: #394149;">ผลิตไฟฟ้าได้กระแสไฟฟ้าสูงสุด 1.2 A</li>
+                                    <li class="list-group-item" style="color: #394149;">ผลิตไฟฟ้าได้ความต่างศักย์สูงสุด 36 V</li>
+                                    <li class="list-group-item" style="color: #394149;">คิดเป็นกำลังไฟฟ้า 43.2 W</li>
+                                    <li class="list-group-item" style="color: #394149;">คิดเป็นพลังงานไฟฟ้า 0.0432 kWh</li>
+                                    <li class="list-group-item" style="color: #394149;"><i class="fa-solid fa-arrows-down-to-line"></i> ใช้งานได้ดีที่สุดที่ระดับความลึก 2.5 m</li>
+                                    <li class="list-group-item" style="color: red; font-size: 16px;">คลิกที่นี่เพื่ออ่านรายละเอียด</li>
+                                </ul>
+                              </div>
+                              <div class="flip-card-back">
+                                <div class="card-body">
+                                    <h5 class="card-title" style="color: #5E3BEE; font-weight: 600;">ระดับความลึกที่เหมาะสม<br>ในการใช้งานทุ่นลอยน้ำไดนาโม</h5>
+                                </div>
+                                <img src="ระยะทุ่น.png" width="250px" style="border-radius: 10px;">
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-lg-6" style="display: flex; justify-content: center;" data-aos="fade-up" data-aos-offset="200">
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                              <div class="flip-card-front" style="text-align: left;">
+                                <div class="card-body" style="padding-bottom: 0px;">
+                                    <h5 class="card-title" style="color: #5E3BEE; font-weight: 600;">การนำไปใช้งานจริง</h5>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item" style="color: #394149;">เมื่อนำไฟฟ้าที่ได้จากทุ่นลอยน้ำไดนาโมมาใช้งานกับอุปกรณ์ไฟฟ้าขนาดเล็กพบว่า</li>
+                                    <li class="list-group-item" style="color: #394149; letter-spacing: 0px;">ทำให้หลอดไฟ 12 โวลต์ 4 หลอดสว่างเต็มกำลัง <i class="fa-solid fa-lightbulb"></i></li>
+                                    <li class="list-group-item" style="color: #394149;">ชาร์จแบตเตอรี่โทรศัพท์มือถือได้ <i class="fa-solid fa-mobile"></i></li>
+                                    <li class="list-group-item" style="color: #394149;">ทำให้พัดลมขนาดเล็ก 30 วัตต์ใช้งานได้ <i class="fa-solid fa-fan"></i></li>
+                                    <li class="list-group-item" style="color: red; font-size: 16px;">คลิกที่นี่เพื่ออ่านรายละเอียด</li>
+                                </ul>
+                              </div>
+                              <div class="flip-card-back">
+                                <div class="card-body">
+                                    <h5 class="card-title" style="color: #5E3BEE; font-weight: 600;">ภาพตัวอย่างการใช้งาน</h5>
+                                </div>
+                                <div style="display: flex; justify-content: center; padding-bottom: 20px;">
+                                    <img src="led.png" width="100px" style="margin-right: 10px; border-radius: 15px;">
+                                    <img src="homestay.png" width="100px" style="margin-left: 10px; border-radius: 15px;">
+                                </div>
+                                <div style="display: flex; justify-content: center;">
+                                    <img src="mobile.png" width="100px" style="margin-right: 10px; border-radius: 15px;">
+                                    <img src="fan.jpeg" width="100px" style="margin-left: 10px; border-radius: 15px;">
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-lg-6" style="display: flex; justify-content: center;" data-aos="fade-up" data-aos-offset="300">
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                              <div class="flip-card-front" style="text-align: left;">
+                                <div class="card-body" style="padding-bottom: 0px;">
+                                    <h5 class="card-title" style="color: #5E3BEE; font-weight: 600;">การพัฒนาต่อยอด</h5>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item" style="color: #394149; font-size: 15px;">
+                                        ในการจะให้ทุ่นลอยน้ำไดนาโมผลิตกระแสไฟฟ้าสำหรับการใช้งานกับอุปกรณ์ในบ้านเรือนที่ใช้ความต่างศักย์ไฟฟ้า 220 โวลต์ 
+                                        แต่ความต่างศักย์ไฟฟ้าที่ได้จากทุ่นลอยน้ำไดนาโมต่อ 1 ทุ่น คือ 36 โวลต์ 
+                                        ดังนั้น จะต้องใช้จำนวนทุ่นทั้งหมดประมาณ 7 ทุ่น 
+                                        มาต่ออนุกรมเพื่อเพิ่มความต่างศักย์และแรงเคลื่อนไฟฟ้า เพื่อใช้กับอุปกรณ์ไฟฟ้าในบ้านเรือน
+                                    </li>
+                                    <li class="list-group-item" style="color: red; font-size: 16px;">คลิกที่นี่เพื่ออ่านรายละเอียด</li>
+                                </ul>
+                              </div>
+                              <div class="flip-card-back">
+                                <div class="card-body">
+                                    <h5 class="card-title" style="color: #5E3BEE; font-weight: 600;">แบบจำลองการต่ออนุกรมของทุ่นลอยน้ำไดนาโม</h5>
+                                </div>
+                                <img src="array.png" width="250px">
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </benefit>
+
+    <competition id="competition">
+        <div class="container-fluid" style="background-color: white;">
+            <div class="container" style="padding: 100px 0px;">
+                <div class="row gy-5" style="display: flex; justify-content: center;">
+
+                    <div class="col-12" data-aos="fade-up">
+                        <span style="color: #394149; font-size: 38px; font-weight: 500;"><i class="fa-solid fa-trophy" style="color: rgb(231, 196, 0);"></i> การแข่งขันโครงงาน </span>
+                        <span style="color: #5E3BEE; font-size: 38px; font-weight: 500;"> "ทุ่นลอยน้ำไดนาโม"</span>
+                    </div>
+
+                    <div class="col-xl-7 col-lg-7">
+                        <div id="carouselExampleCaptions" class="carousel slide" data-aos="flip-left" data-bs-ride="carousel">
+                            <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                            </div>
+                            <div class="carousel-inner" style="border-radius: 15px;">
+                            <a class="carousel-item active" href="envi.html">
+                                <img src="competition/envi/รับรางวัลEnvi.jpg" style="filter:brightness(0.8);" class="d-block w-100" alt="...">
+                                <div class="carousel-caption d-none d-md-block">
+                                <h5>โครงการภารกิจรักษ์สิ่งแวดล้อมปีที่ 4 ENVIMISSION 4</h5>
+                                <!-- <p>จุฬาลงกรณ์มหาวิทยาลัย</p> -->
+                                <p>คลิกที่นี่เพื่ออ่านรายละเอียด</p>
+                                </div>
+                            </a>
+                            <a class="carousel-item" href="chu.html">
+                                <img src="competition/chu/รับเกียรติบัตรจุฬา.jpeg" style="filter:brightness(0.8);" class="d-block w-100" alt="...">
+                                <div class="carousel-caption d-none d-md-block">
+                                <h5>High-school Talent Project Competition 2023</h5>
+                                <!-- <p>จุฬาลงกรณ์มหาวิทยาลัย</p> -->
+                                <p>คลิกที่นี่เพื่ออ่านรายละเอียด</p>
+                                </div>
+                            </a>
+                            <a class="carousel-item" href="obec.html">
+                                <img src="competition/หัตถกรรม/แข่งหัตถกรรมประเทศ.jpg" style="filter:brightness(0.8);" class="d-block w-100" alt="...">
+                                <div class="carousel-caption d-none d-md-block">
+                                <h5>แข่งขันโครงงานวิทยาศาสตร์ศิลปหัตถกรรม ครั้งที่ 70</h5>
+                                <!-- <p>สํานักงานคณะกรรมการการศึกษาขั้นพื้นฐาน</p> -->
+                                <p>คลิกที่นี่เพื่ออ่านรายละเอียด</p>
+                                </div>
+                            </a>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </competition>
+
+    <file id="file">
+        <div class="container-fluid" style="background-color: #ebf7fc;">
+            <div class="container" style="padding: 100px 0px;">
+                <div class="row gy-5">
+                    <div class="col-12" data-aos="fade-up">
+                        <span style="color: #394149; font-size: 38px; font-weight: 500;"><i class="fa-solid fa-file"></i> ไฟล์โครงงาน </span>
+                        <span style="color: #5E3BEE; font-size: 38px; font-weight: 500;"> "ทุ่นลอยน้ำไดนาโม"</span>
+                    </div>
+                    <div data-aos="fade-up" class="col-12" style="text-align: center;">
+                        <p style="color: #394149; font-size: 25px; font-weight: 500;"><i class="fa-solid fa-video"></i> วิดีโอ </p>
+                        <iframe loading="lazy" class="youtube" width="1236" height="695" src="https://www.youtube.com/embed/kKZVxRKdKB4" title="ส่งผลงาน semi final MVSK SMA BOYZ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                    <div data-aos="fade-up" class="col-12" style="text-align: center;">
+                        <p style="color: #394149; font-size: 25px; font-weight: 500;"><i class="fa-solid fa-book"></i> เล่มรายงาน </p>
+                        <iframe loading="lazy" src="https://drive.google.com/file/d/1qQY9xQTz6lcxQECDMnFbYFE7jSpiOLZv/preview" allow="autoplay"></iframe>
+                    </div>
+                    <div data-aos="fade-up" class="col-12" style="text-align: center;">
+                        <p style="color: #394149; font-size: 25px; font-weight: 500;"><i class="fa-solid fa-file-powerpoint"></i> สไลด์นำเสนอ </p>
+                        <iframe loading="lazy" class="youtube" src="https://drive.google.com/file/d/10PsjnZs3QPJjiUBslsJGhVm9yuKiB49N/preview" allow="autoplay"></iframe>
+                    </div>
+                    <div data-aos="fade-up" class="col-12" style="text-align: center;">
+                        <p style="color: #394149; font-size: 25px; font-weight: 500;"><i class="fa-solid fa-laptop-file"></i> Infographic </p>
+                        <iframe loading="lazy" class="info" src="https://drive.google.com/file/d/1UADw0764ZNrRV5E_DauR8TAHaFLuYfPV/preview" allow="autoplay"></iframe>
+                    </div>
+                    <div data-aos="fade-up" class="col-12" style="text-align: center;">
+                        <p style="color: #394149; font-size: 25px; font-weight: 500;"><i class="fa-solid fa-person-chalkboard"></i> &nbsp; โปสเตอร์นำเสนอ </p>
+                        <iframe loading="lazy" src="https://drive.google.com/file/d/1uBwHSWwGbMwtltgdLcQOyr7wtnAq3WJe/preview" allow="autoplay"></iframe>
+                    </div>
+                    <div data-aos="fade-up" class="col-12" style="text-align: center;">
+                        <p style="color: #394149; font-size: 25px; font-weight: 500;"><i class="fa-solid fa-table-list"></i> แผนปฏิบัติงาน </p>
+                        <iframe loading="lazy" src="https://drive.google.com/file/d/1j6dVbMpmyZ0RAnoFj5UKV4_Qr3QTTHgU/preview" allow="autoplay"></iframe>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </file>
+
+    <eng id="eng">
+        <div class="container-fluid" style="background-color: white;">
+            <div class="container" style="padding: 100px 0px;">
+                <div class="row gy-5">
+                    <div class="col-12" data-aos="fade-up" style="display: flex;">
+                        <div style="color: #394149; font-size: 38px; font-weight: 500;"><i class="fa-solid fa-gear" style="color: brown;"></i> การออกแบบ</div>
+                        <div style="color: brown; font-size: 38px; font-weight: 500;">เชิงวิศวกรรม</div>
+                    </div>
+                    <div data-aos="fade-up" class="col-12" style="text-align: center;">
+                        <p style="color: #394149; font-size: 25px; font-weight: 500;"><i class="fa-solid fa-paper-plane"></i> รูปการทำกิจกรรม </p>
+                        <img class="" src="/eng design.jpg" >
+                    </div>
+                    <div data-aos="fade-up" class="col-12" style="text-align: center;">
+                        <p style="color: #394149; font-size: 25px; font-weight: 500;"><i class="fa-solid fa-file-powerpoint"></i> สไลด์นำเสนอ </p>
+                        <iframe loading="lazy" src="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAF9FJyVZgQ&#x2F;eK6RN13yA0x24v9juf8kGg&#x2F;view?embed" allowfullscreen="allowfullscreen" allow="fullscreen"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </eng>
+
+
+    <worksheet id="worksheet">
+        <div class="container-fluid" style="background-color: #ebf7fc;">
+            <div class="container" style="padding: 100px 0px;">
+                <div class="row gy-5">
+                    <div class="col-12" data-aos="fade-up">
+                        <span style="color: #394149; font-size: 38px; font-weight: 500;"><i class="fa-solid fa-pen-to-square"></i> ไฟล์ใบงาน </span>
+                    </div>
+                    <div data-aos="fade-up" class="col-12" style="text-align: center;">
+                        <p style="color: #394149; font-size: 25px; font-weight: 500;"><i class="fa-solid fa-book"></i> ใบงานที่ 1 </p>
+                        <iframe loading="lazy" src="https://drive.google.com/file/d/1YtYYBr_EH5zt2D3DlW7itZhL_KEcAxeH/preview" allow="autoplay"></iframe>
+                    </div>
+                    <div data-aos="fade-up" class="col-12" style="text-align: center;">
+                        <p style="color: #394149; font-size: 25px; font-weight: 500;"><i class="fa-solid fa-book"></i> ใบงานที่ 2 </p>
+                        <iframe loading="lazy" src="https://drive.google.com/file/d/19aFOwJ1l8JVQpaGMagxANc4LfX95OZDs/preview" allow="autoplay"></iframe>
+                    </div>
+                    <div data-aos="fade-up" class="col-12" style="text-align: center;">
+                        <p style="color: #394149; font-size: 25px; font-weight: 500;"><i class="fa-solid fa-book"></i> ใบงานที่ 13 </p>
+                        <iframe loading="lazy" src="https://drive.google.com/file/d/1XsDcnRIZ-7ZdaY24ZMwAEEyKxsDhaU22/preview" allow="autoplay"></iframe>
+                    </div>
+                    <div data-aos="fade-up" class="col-12" style="text-align: center;">
+                        <p style="color: #394149; font-size: 25px; font-weight: 500;"><i class="fa-solid fa-book"></i> ใบงานที่ 14 </p>
+                        <iframe loading="lazy" src="https://drive.google.com/file/d/1lTjgAVS-ovl15uQ9PdXxsm9hN5FpXDti/preview" allow="autoplay"></iframe>
+                    </div>             
+                </div>
+            </div>
+        </div>
+    </worksheet>
+
+
+    <member id="member">
+        <div class="container-fluid" style="background-color: white;">
+            <div class="container" style="padding: 100px 0px;">
+                <div class="row gy-5">
+
+                    <div style="text-align: center;" class="col-12" data-aos="fade-up">
+                        <span style="color: #394149; font-size: 38px; font-weight: 500;"><i class="fa-solid fa-user-group"></i> สมาชิก</span>
+                        <span style="color: #5E3BEE; font-size: 38px; font-weight: 500;">ในกลุ่ม</span>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-6" style="display: flex; justify-content: center;" data-aos="fade-up" data-aos-offset="0">
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                              <div class="flip-card-front" style="text-align: left; overflow: hidden;">
+                                <img src="เพชร.jpg" width="100%" >
+                              </div>
+                              <div class="flip-card-back" style="text-align: left;">
+                                <div class="card-body" style="padding-bottom: 0px;">
+                                    <h5 class="card-title" style="color: #5E3BEE; font-weight: 600; font-size: 25px;">ข้อมูลสมาชิก</h5>
+                                </div>
+                                <ul class="list-group list-group-flush" style="font-size: 20px;">
+                                    <li class="list-group-item" style="color: #394149;">นายหาญพล พรหมสมบัติ</li>
+                                    <li class="list-group-item" style="color: #394149;">ชั้นมัธยมศึกษาปีที่ 6/8</li>
+                                    <li class="list-group-item" style="color: #394149;">เลขที่ 4</li>
+                                    <li class="list-group-item" style="color: #394149;"></li>
+                                </ul>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-6" style="display: flex; justify-content: center;" data-aos="fade-up" data-aos-offset="100">
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                              <div class="flip-card-front" style="text-align: left; overflow: hidden;">
+                                <img src="เปรม.jpg" width="100%" >
+                              </div>
+                              <div class="flip-card-back" style="text-align: left;">
+                                <div class="card-body" style="padding-bottom: 0px;">
+                                    <h5 class="card-title" style="color: #5E3BEE; font-weight: 600; font-size: 25px;">ข้อมูลสมาชิก</h5>
+                                </div>
+                                <ul class="list-group list-group-flush" style="font-size: 20px;">
+                                    <li class="list-group-item" style="color: #394149;">นายปกรณ์ สายคุ้ม</li>
+                                    <li class="list-group-item" style="color: #394149;">ชั้นมัธยมศึกษาปีที่ 6/8</li>
+                                    <li class="list-group-item" style="color: #394149;">เลขที่ 6</li>
+                                    <li class="list-group-item" style="color: #394149;"></li>
+                                </ul>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-12" style="display: flex; justify-content: center;" data-aos="fade-up" data-aos-offset="200">
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                              <div class="flip-card-front" style="text-align: left; overflow: hidden;">
+                                <img src="นที.jpg" width="100%" >
+                              </div>
+                              <div class="flip-card-back" style="text-align: left;">
+                                <div class="card-body" style="padding-bottom: 0px;">
+                                    <h5 class="card-title" style="color: #5E3BEE; font-weight: 600; font-size: 25px;">ข้อมูลสมาชิก</h5>
+                                </div>
+                                <ul class="list-group list-group-flush" style="font-size: 20px;">
+                                    <li class="list-group-item" style="color: #394149;">นายศักดิ์นที อ่อนรักษ์</li>
+                                    <li class="list-group-item" style="color: #394149;">ชั้นมัธยมศึกษาปีที่ 6/8</li>
+                                    <li class="list-group-item" style="color: #394149;">เลขที่ 14</li>
+                                    <li class="list-group-item" style="color: #394149;"></li>
+                                </ul>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </member>
+
+
+    <contact id="contact">
+        <div class="container-fluid" style="background-color: #ebf7fc;">
+            <div class="container contact" style="padding: 96px 15px;" data-aos="fade-up">
+                <div class="row">
+                    <div class="col-12" style="text-align: center; padding-bottom: 0px;">
+                        <span style="font-size: 38px; font-weight: 500; color: #394149;"><i class="fa-solid fa-comments"></i> Comment</span>
+                        <p style="font-size: 16px; color: #394149; padding-bottom: 40px; padding-top: 10px;">
+                            สามารถแสดงความคิดเห็น และข้อเสนอแนะได้ผ่านช่องด้านล่าง ทางคณะผู้จัดทำยินดีรับฟังทุกความคิดเห็นเพื่อพัฒนาโครงงานนี้ให้ดียิ่งขึ้นต่อไป ทางคณะผู้จัดทำขอขอบพระคุณสำหรับความคิดเห็นของทุกท่านด้วยครับ
+                        </p>
+                    </div>
+                    <div class="col-12">
+                        <form style="display: flex; justify-content: center;">
+                            <div>
+                                <input id="name" type="text" placeholder="Name Or Email For Contact Back" style="height: 63px; background-color: white; color: #5E3BEE; border: 2px solid #5E3BEE; border-radius: 8px; padding: 27px 0px 27px 18px; margin-bottom: 32px;">
+                                <br><textarea id="message" type="text" placeholder="Message" style="height: 166px; background-color: white; color: #5E3BEE; border: 2px solid #5E3BEE; border-radius: 8px; padding: 27px 0px 27px 18px; margin-bottom: 32px;"></textarea>
+                                <br><div onclick='send()' class="btn btn-primary" style="padding: 24px 20px; color: white;">Contact Me</d></div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </contact>
+
+
+    <script>
+        function send(){
+            var name = document.getElementById('name');
+            var message = document.getElementById('message');
+            // showCustomAlert();
+            alert("ส่งข้อความสำเร็จ");
+            db.collection("message").add({
+                name: name.value,
+                message: message.value
+            })
+            name.value = '';
+            message.value = '';
+        }
+    </script>
+
+    <alert>
+        <div class="container">
+            <div class="row" style="justify-content: center;">
+                <div id="alert" class="col-12 alert alert-success align-items-center" role="alert" style="z-index: 20;">
+                    <p onclick="closeCustomAlert()" style="position: relative; left:360px; bottom: 15px; cursor:pointer; user-select: none;">x</p>
+                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                    <div style="cursor: default; user-select: none;">
+                        ส่งข้อความสำเร็จ
+                    </div>
+                </div>
+            </div>
+        </div>
+    </alert>
+
+    <script>
+        document.querySelector('.alert').style.display='none';
+        document.querySelector('.alert').classList.remove('show');
+        function showCustomAlert() {
+            document.querySelector('.alert').style.display='flex';
+            document.querySelector('.alert').classList.add('show');
+        }
+
+        function closeCustomAlert() {
+            document.querySelector('.alert').style.display='none';
+            document.querySelector('.alert').classList.remove('show');
+        }
+    </script>
+    
+
+
+    <coppyright>
+        <div class="container-fluid" style="background-color: rgba(224, 224, 224, 0.7); height:2px;"></div>
+        <div class="container-fluid" style="background-color: rgba(242, 242, 242, 0.7); height:2px;"></div>
+        <div class="container-fluid" style="background-color: rgba(243, 243, 243, 0.7); height:2px;"></div>
+        <div class="container-fluid" style="background-color: white;">
+            <div class="container" style="padding: 30px 0px;">
+                <div class="row" style="text-align: center;">
+                    <div class="col-2"></div>
+                    <div class="col-8">
+                        <span style="font-size: 28px; font-weight: 600; color: #394149; cursor: default; user-select: none;">Dynamo</span>
+                        <span style="font-size: 28px; font-weight: 600; color: #5E3BEE; cursor: default; user-select: none;"> Buoyancy</span>
+                        <p style="font-size: 16px; color: #9CA3AF; padding-top: 10px;">Copyright &copy; 2023 HANPON PHROMSOMBUT All rights reserved.</p>
+                        <div class="container" style="display: flex; justify-content: center;" >
+                            <div class="col-7 col-sm-6 col-md-5 col-lg-4 col-xl-3 col-xxl-2" style="display: flex; justify-content: space-between;">
+                            <a aria-label="คลิ๊กที่นี่เพื่อโทรหาหาญพล" href="tel:+66936901973" ><i class="fa-solid fa-phone" ></i></a>
+                            <a aria-label="คลิ๊กที่นี่เพื่อไปยังไลน์ของหาญพล" href="https://l.facebook.com/l.php?u=https%3A%2F%2Fline.me%2Fti%2Fp%2FnIWpRKzaay%3Ffbclid%3DIwAR2OBYmEPPJu5J54R3ZJxgTw2txV8kA0O04i2EsohDNGEKVTor-wpF72CZM&h=AT3PWXhhndaw_HBXgLcZGsRvEqSEhwYBsQdRc27o1nexwXqK-d1OPbFLM0ndntgTXPOeChUnFcrq6addQF2E8Vcr9bf-rDLigYrFUS0m-j-UL12H7Z0_F367HWArGFo3bbkhmAtvevhLyU-8HaqZMw"><i class="fa-brands fa-line"></i></a>
+                            <a aria-label="คลิ๊กที่นี่เพื่อไปยังเฟสบุ๊คของหาญพล" href="https://www.facebook.com/profile.php?id=100024313590641"><i class="fa-brands fa-facebook"></i></a>
+                            <a aria-label="คลิ๊กที่นี่เพื่อไปยังอินสตราแกรมของหาญพล" href="https://www.instagram.com/hanpon_/"><i class="fa-brands fa-instagram"></i></a></div>
+                        </div>
+                    </div>
+                    <div class="col-2"></div>
+                </div>
+            </div>
+        </div>
+    </coppyright>
+
+    
+</body>
+</html>

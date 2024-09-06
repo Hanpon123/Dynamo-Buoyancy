@@ -1,0 +1,236 @@
+body{
+    font-family: 'Kanit', sans-serif;
+}
+
+nav a{
+    text-decoration: none;
+    color: #1C1E53;
+    font-size: 17px;
+}
+
+nav a:hover{
+    color: #5E3BEE;
+    transition: 0.3s;
+}
+
+nav .btn, home .btn{
+    border: #5E3BEE;
+    text-decoration: none;
+    color: white;
+    background-color: #5E3BEE;
+}
+
+nav .btn:hover, home .btn:hover{
+    border: #502ae9;
+    color: white;
+    background-color: #502ae9;
+    transition: 0.3s;
+}
+
+
+nav-mobile{
+    display: none;
+}
+
+nav-mobile .menu div{
+    padding-top: 16px;
+}
+
+nav-mobile .menu .navText{
+    text-decoration: none;
+    color: #1C1E53;
+    font-size: 20px;
+}
+
+nav-mobile .menu .navText:hover{
+    color: #5E3BEE;
+    transition: 0.3s;
+}
+
+nav-mobile .btn{
+    border: #5E3BEE;
+    text-decoration: none;
+    color: white;
+    background-color: #5E3BEE;
+}
+
+nav-mobile .btn:hover{
+    border: #502ae9;
+    color: white;
+    background-color: #502ae9;
+    transition: 0.3s;
+}
+
+home .picture{
+    width: 427px;
+    height: 427px;
+}
+
+about .picture{
+    width: 427px;
+    height: 427px;
+}
+
+about .mobile{
+    display: none;
+}
+
+about .text{
+    padding: 0px 12px;
+}
+
+activities img{
+    width: 450px;
+    border-radius: 15px;
+}
+
+coppyright i{
+    color: #5E3BEE;
+}
+
+coppyright i:hover{
+    color: #502ae9;
+}
+
+file iframe ,eng iframe,eng img ,worksheet iframe{
+    width: 500px;
+    height: 707px;
+}
+
+file .youtube ,eng iframe,eng img{
+    height: 281px;
+}
+
+
+file .info{
+    height: 353px;
+}
+
+contact a{
+    text-decoration: none;
+}
+
+contact a:hover{
+    text-decoration: underline;
+    text-decoration-color: white;
+    text-decoration-thickness: 1.5px;
+}
+
+contact input::placeholder{
+    color: #9CA3AF;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+contact textarea,contact input{
+    width: 400px;
+}
+
+contact textarea::placeholder{
+    color: #9CA3AF;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+contact .btn{
+    background-color: #5E3BEE;
+    border-color: #5E3BEE;
+    border-radius: 8px;
+}
+
+contact .btn:hover{
+    background-color: #502ae9;
+    border-color: #502ae9;
+    transition: 0.4s;
+}
+
+contact .btn:active{
+    background-color: #EAB308;
+    border-color: #EAB308;
+    transition: 0.1s;
+}
+
+.alert{
+    position: fixed;
+    top:10%;
+    width: 400px;
+    height: 80px;
+}
+
+@media screen and (max-width: 1200px) {
+    nav{
+        display: none;
+    }
+
+    nav-mobile{
+        display: block;
+    }
+
+    nav-mobile .menu{
+        display: none;
+    }
+    
+    nav-mobile .bar:hover .menu{
+        display: block;
+    }
+}
+
+@media screen and (max-width:480px) {
+    home .picture{
+        width: 300px;
+        height: 300px;
+    }
+
+    about .picture{
+        width: 300px;
+        height: 300px;
+    }
+
+    activities img{
+        width: 300px;
+    }
+
+    contact textarea,contact input{
+        width: 300px;
+    }
+}
+
+@media screen and (max-width:990px) {
+    about .mobile{
+        display: block;
+    }
+
+    about .default{
+        display: none;
+    }
+}
+
+@media screen and (max-width:1400px) {
+    about .text{
+        padding: 40px 0px;
+    }
+}
+
+@media screen and (max-width:540px) {
+    file iframe , worksheet iframe{
+        width: 100%;
+        height: calc(90vw * 424 / 300);
+    }
+    
+    eng iframe , file .youtube{
+        width: 100%;
+        height: calc(100vw*9/16);
+    }
+    
+    
+    file .info{
+        width: 100%;
+        height: calc(95vw*420/594);
+    }
+
+    eng img{
+        width: 100%;
+        height: auto;
+    }
+       
+}
